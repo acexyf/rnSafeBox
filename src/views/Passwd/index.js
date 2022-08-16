@@ -293,7 +293,11 @@ class Index extends Component {
             </View>
             {type === 'add' ? (
               <View style={styles.btnAddBox}>
-                <Button title="新建" onPress={() => this.clickCreate()} />
+                <Button
+                  title="新建"
+                  onPress={() => this.clickCreate()}
+                  buttonStyle={{backgroundColor: '#409EFF'}}
+                />
               </View>
             ) : (
               <View style={styles.btnList}>
@@ -313,6 +317,7 @@ class Index extends Component {
                   title="保存"
                   containerStyle={{width: 90}}
                   onPress={() => this.clickSave()}
+                  buttonStyle={{backgroundColor: '#409EFF'}}
                 />
               </View>
             )}

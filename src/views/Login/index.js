@@ -95,6 +95,7 @@ class Index extends Component {
           <Button
             raised={true}
             onPress={() => this.clickSubmit()}
+            buttonStyle={{backgroundColor: '#409EFF'}}
             title="确定"></Button>
         </View>
       </View>

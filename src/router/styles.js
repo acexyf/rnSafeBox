@@ -4,12 +4,12 @@ const styles = StyleSheet.create({
     width: 260,
   },
   popoverLine: {
-    paddingVertical: 20,
+    paddingVertical: 15,
     paddingHorizontal: 20,
   },
   popoverLineText: {
     color: '#333',
-    fontSize: 18,
+    fontSize: 16,
   },
 });
 export default styles;

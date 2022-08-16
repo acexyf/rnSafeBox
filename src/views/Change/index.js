@@ -195,7 +195,10 @@ class Index extends Component {
           <Text style={styles.tip}>密码重要，请牢记</Text>
         </View>
         <View style={styles.confirm}>
-          <Button onPress={() => this.clickSubmit()} title="确定"></Button>
+          <Button
+            onPress={() => this.clickSubmit()}
+            title="确定"
+            buttonStyle={{backgroundColor: '#409EFF'}}></Button>
         </View>
       </View>
     );

@@ -114,7 +114,7 @@ export default class Router extends Component {
                               key={item.id}
                               onPress={() => clickPopoverItem(item)}>
                               <View key={item.id} style={styles.popoverLine}>
-                                <Text styles={styles.popoverLineText}>
+                                <Text style={styles.popoverLineText}>
                                   {item.name}
                                 </Text>
                               </View>
