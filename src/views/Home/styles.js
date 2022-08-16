@@ -27,13 +27,12 @@ const styles = StyleSheet.create({
   },
   listChild: {
     width: '100%',
-    height: 90,
     borderBottomColor: '#D4D4D4',
     borderBottomWidth: 1,
     backgroundColor: '#F6F6F6',
   },
   listChildBox: {
-    height: 90,
+    paddingVertical: 20,
     paddingHorizontal: 30,
     flexDirection: 'row',
     alignItems: 'center',
@@ -51,9 +50,21 @@ const styles = StyleSheet.create({
       color: '#666',
       fontSize: 14,
     },
+    valueBox: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingBottom: 10,
+    },
     value: {
+      maxWidth: 200,
       color: '#333',
       fontSize: 16,
+    },
+    copy: {
+      width: 18,
+      height: 18,
+      marginLeft: 4,
     },
   },
   fixedAddBox: {

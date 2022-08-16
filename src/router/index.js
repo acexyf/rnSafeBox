@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {APP_NAME} from '../utils/config';
 
 import Popover from 'react-native-popover-view';
 
@@ -75,7 +76,7 @@ export default class Router extends Component {
               component={Home}
               options={({navigation}) => {
                 return {
-                  title: '安全密码箱',
+                  title: APP_NAME,
                   headerRight: () => {
                     const [showPopover, setPopover] = useState(false);
 

@@ -299,17 +299,19 @@ class Index extends Component {
               <View style={styles.btnList}>
                 <Button
                   title="取消"
-                  containerStyle={{width: 80}}
+                  containerStyle={{width: 90}}
+                  buttonStyle={{backgroundColor: '#909399'}}
                   onPress={() => this.clickCancel()}
                 />
                 <Button
                   title="删除"
-                  containerStyle={{width: 80}}
+                  containerStyle={{width: 90}}
+                  buttonStyle={{backgroundColor: '#F56C6C'}}
                   onPress={() => this.clickDelete()}
                 />
                 <Button
                   title="保存"
-                  containerStyle={{width: 80}}
+                  containerStyle={{width: 90}}
                   onPress={() => this.clickSave()}
                 />
               </View>

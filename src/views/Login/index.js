@@ -7,6 +7,7 @@ import {showToast} from '../../utils/index';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 import storage from '../../utils/storage';
+import {APP_NAME} from '../../utils/config';
 const {getData} = storage;
 import {Sae} from 'react-native-textinput-effects';
 
@@ -61,10 +62,10 @@ class Index extends Component {
           style={styles.icon}
           source={require('./images/icon.png')}></Image>
         <View>
-          <Text style={styles.title}>安全密码箱</Text>
+          <Text style={styles.title}>{APP_NAME}</Text>
         </View>
         <View style={styles.input}>
-         {/*
+          {/*
         <Input
             value={pwd}
             placeholder="请输入入口密码"

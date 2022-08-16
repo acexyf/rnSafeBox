@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CLASSIFY} from '../../utils/enum';
 import storage from '../../utils/storage';
 
@@ -87,7 +88,15 @@ class Index extends Component {
     }
     for (let i = 0; i < CLASSIFY.length; i++) {
       const item = Object.assign({}, CLASSIFY[i]);
-      item.toggle = false;
+      // 原来列表中的
+      const findExist = this.state.list.find(el => el.id === item.id);
+
+      if (findExist && typeof findExist.toggle === 'boolean') {
+        item.toggle = findExist.toggle;
+      } else {
+        item.toggle = false;
+      }
+
       if (typeof tempDist[item.id] === 'undefined') {
         item.children = [];
       } else {
@@ -124,6 +133,10 @@ class Index extends Component {
       classify,
     });
   }
+  clickCopy(text, type) {
+    Clipboard.setString(text);
+    showToast(type === 1 ? '用户名复制成功' : '密码复制成功');
+  }
   render() {
     const {list, windowWidth, shadowOpt} = this.state;
     return (
@@ -143,7 +156,7 @@ class Index extends Component {
                     <Icon
                       name={item.toggle ? 'up' : 'down'}
                       size={20}
-                      color="#999"
+                      color="#333"
                     />
                   </View>
                 </View>
@@ -163,24 +176,58 @@ class Index extends Component {
                                 </Text>
                               </View>
                               <View style={styles.listChildLine}>
-                                <Text style={styles.listChildLine.label}>
-                                  用户名：
-                                </Text>
-                                <Text style={styles.listChildLine.value}>
-                                  {el.username}
-                                </Text>
+                                <View>
+                                  <Text style={styles.listChildLine.label}>
+                                    用户名：
+                                  </Text>
+                                </View>
+                                <TouchableOpacity
+                                  style={styles.listChildLine.valueBox}
+                                  onPress={() =>
+                                    this.clickCopy(el.username, 1)
+                                  }>
+                                  <View>
+                                    <Text style={styles.listChildLine.value}>
+                                      {el.username}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.listChildLine.copy}>
+                                    <Ionicons
+                                      name={'copy-outline'}
+                                      size={18}
+                                      color="#ACB5B2"
+                                    />
+                                  </View>
+                                </TouchableOpacity>
                               </View>
                               <View style={styles.listChildLine}>
-                                <Text style={styles.listChildLine.label}>
-                                  密码：
-                                </Text>
-                                <Text style={styles.listChildLine.value}>
-                                  {el.password}
-                                </Text>
+                                <View>
+                                  <Text style={styles.listChildLine.label}>
+                                    密码：
+                                  </Text>
+                                </View>
+                                <TouchableOpacity
+                                  style={styles.listChildLine.valueBox}
+                                  onPress={() =>
+                                    this.clickCopy(el.password, 2)
+                                  }>
+                                  <View>
+                                    <Text style={styles.listChildLine.value}>
+                                      {el.password}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.listChildLine.copy}>
+                                    <Ionicons
+                                      name={'copy-outline'}
+                                      size={18}
+                                      color="#ACB5B2"
+                                    />
+                                  </View>
+                                </TouchableOpacity>
                               </View>
                             </View>
                             <View>
-                              <Icon name={'right'} size={16} color="#666" />
+                              <Icon name={'right'} size={16} color="#A1A3A6" />
                             </View>
                           </View>
                         </TouchableWithoutFeedback>
