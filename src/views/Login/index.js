@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Platform} from 'react-native';
 import {Input, Button} from 'react-native-elements';
 import styles from './styles.js';
 import bus from '../../utils/bus';
@@ -20,6 +20,7 @@ class Index extends Component {
       // 当前storage中的密码
       now: '',
       pwd: '',
+      sensorAvailable: false,
     };
   }
   async getStorage() {
@@ -35,12 +36,53 @@ class Index extends Component {
       bus.emit('login');
     }
   }
-  componentDidMount() {
-    this.getStorage();
+  async componentDidMount() {
+    await this.getStorage();
+
+    if (this.state.now) {
+      let available = await this.checkSensorsAvailable();
+
+      if (available) {
+        let auth = await this.scanAuth();
+        if (auth) {
+          bus.emit('login');
+        }
+      }
+    }
 
     // setTimeout(() => {
     //   bus.emit('login');
     // }, 500);
+  }
+  componentWillUnmount = () => {
+    FingerprintScanner.release();
+  };
+  // 判断指纹传感器是否可用
+  async checkSensorsAvailable() {
+    let flag = false;
+    try {
+      let res = await FingerprintScanner.isSensorAvailable();
+      flag = true;
+    } catch (error) {}
+    return flag;
+  }
+  async scanAuth() {
+    let flag = false;
+    try {
+      let res = await FingerprintScanner.authenticate({
+        title: '指纹登录',
+        description: '请触摸指纹传感器',
+        cancelButton: '取消',
+      });
+      if (res === true) {
+        flag = true;
+      }
+    } catch (error) {}
+    return flag;
+  }
+  // 判断平台
+  requiresLegacyAuthentication() {
+    return Platform.Version < 23;
   }
   clickSubmit() {
     const {pwd, now} = this.state;

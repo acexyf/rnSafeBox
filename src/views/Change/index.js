@@ -32,9 +32,15 @@ class Index extends Component {
         showOldPwd: true,
         now: entrance,
       });
+      this.props.navigation.setOptions({
+        title: '修改入口密码',
+      });
     } else {
       this.setState({
         showOldPwd: false,
+      });
+      this.props.navigation.setOptions({
+        title: '设置入口密码',
       });
     }
   }
