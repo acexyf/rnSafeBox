@@ -164,3 +164,47 @@ module.exports = {
 参考：
 
 https://github.com/software-mansion/react-native-reanimated/issues/3410
+
+
+
+
+
+
+### FingerprintScanner
+
+
+
+```
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:checkDebugAarMetadata'.
+> Could not resolve all files for configuration ':app:debugRuntimeClasspath'.
+   > Could not find com.wei.android.lib:fingerprintidentify:1.2.6.
+     Required by:
+         project :app > project :react-native-fingerprint-scanner
+
+```
+
+
+
+build.gradle新增jcenter()
+
+
+
+```
+allprojects {
+    repositories {
+        ....
+        jcenter()
+    }
+}
+```
+
+
+
+参考：https://github.com/hieuvp/react-native-fingerprint-scanner/issues/192
+
+
+
+

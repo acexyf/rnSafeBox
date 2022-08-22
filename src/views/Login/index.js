@@ -10,6 +10,7 @@ import storage from '../../utils/storage';
 import {APP_NAME} from '../../utils/config';
 const {getData} = storage;
 import {Sae} from 'react-native-textinput-effects';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 // 登录页，修改密码
 class Index extends Component {

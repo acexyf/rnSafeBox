@@ -24,6 +24,6 @@ cd android && ./gradlew clean && ./gradlew assembleRelease
 ## todo
 
 
+* 支持指纹识别进入主页（done）
 * 箭头添加动画效果
-* 支持指纹识别进入主页
-
+* 搜索功能
