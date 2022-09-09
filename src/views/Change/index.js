@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import styles from './styles';
-import {Input, Button} from 'react-native-elements';
+import {Button} from 'native-base';
 import storage from '../../utils/storage';
 import {showToast, showAlert} from '../../utils/index';
 import {Sae} from 'react-native-textinput-effects';
@@ -203,8 +203,9 @@ class Index extends Component {
         <View style={styles.confirm}>
           <Button
             onPress={() => this.clickSubmit()}
-            title="确定"
-            buttonStyle={{backgroundColor: '#409EFF'}}></Button>
+            buttonStyle={{backgroundColor: '#409EFF'}}>
+            确定
+          </Button>
         </View>
       </View>
     );

@@ -9,17 +9,17 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, StatusBar} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// import {
+//   Colors,
+//   DebugInstructions,
+//   Header,
+//   LearnMoreLinks,
+//   ReloadInstructions,
+// } from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import Router from './src/router/index';
-import {ThemeProvider} from 'react-native-elements';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {NativeBaseProvider} from 'native-base';
 
 const App = () => {
   return (
@@ -29,7 +29,9 @@ const App = () => {
         translucent={true}
         backgroundColor="transparent"></StatusBar>
       <NavigationContainer>
-        <Router></Router>
+        <NativeBaseProvider>
+          <Router></Router>
+        </NativeBaseProvider>
       </NavigationContainer>
     </SafeAreaProvider>
   );

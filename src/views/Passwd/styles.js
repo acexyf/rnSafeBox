@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
   },
+  btnBox: {
+    width: 90,
+  },
   flexBox: {
     flexDirection: 'row',
     backgroundColor: '#fff',

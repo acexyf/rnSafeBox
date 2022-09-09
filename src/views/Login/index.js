@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, Image, Platform} from 'react-native';
-import {Input, Button} from 'react-native-elements';
+import {Button} from 'native-base';
 import styles from './styles.js';
 import bus from '../../utils/bus';
 import {showToast} from '../../utils/index';
@@ -135,11 +135,7 @@ class Index extends Component {
           />
         </View>
         <View style={styles.btn}>
-          <Button
-            raised={true}
-            onPress={() => this.clickSubmit()}
-            buttonStyle={{backgroundColor: '#409EFF'}}
-            title="确定"></Button>
+          <Button onPress={() => this.clickSubmit()}>确定</Button>
         </View>
       </View>
     );

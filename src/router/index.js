@@ -23,7 +23,6 @@ import Passwd from '../views/Passwd';
 import Change from '../views/Change';
 import About from '../views/About';
 import bus from '../utils/bus.js';
-// import {ListItem} from 'react-native-elements';
 
 export default class Router extends Component {
   constructor(props) {

@@ -1,23 +1,23 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
   TouchableWithoutFeedback,
   ScrollView,
   Alert,
+  Dimensions,
 } from 'react-native';
 import styles from './styles';
-import {Input, Button, BottomSheet, ListItem} from 'react-native-elements';
 import {CLASSIFY} from '../../utils/enum.js';
 import {showToast, showAlert, getUUID} from '../../utils/index';
 import storage from '../../utils/storage';
-
+import {Button, Input, Text, Actionsheet, Box} from 'native-base';
 const {getObjectData, storeObjectData, removeStorage} = storage;
 
 // 新建密码和修改密码
 class Index extends Component {
   constructor(props) {
     super(props);
+    const {height} = Dimensions.get('window');
 
     this.state = {
       isVisible: false,
@@ -33,6 +33,10 @@ class Index extends Component {
       username: '',
       password: '',
       explain: '',
+      windowHeight: height,
+      inputSize: 'xl',
+      labelSize: 18,
+      labelColor: 'dark.300',
     };
   }
   async componentDidMount() {
@@ -183,25 +187,6 @@ class Index extends Component {
     });
     showToast('更新成功');
     this.props.navigation.goBack();
-
-    // storage
-    //   .save({
-    //     key: `classify${pwdTypeValue}`,
-    //     id,
-    //     data: {
-    //       classify: pwdTypeValue,
-    //       id,
-    //       title,
-    //       username,
-    //       password,
-    //       site,
-    //       explain,
-    //     },
-    //   })
-    //   .then(res => {
-    //     showToast('更新成功');
-    //     this.props.navigation.goBack();
-    //   });
   }
   async clickCreate() {
     const flag = this.validate();
@@ -235,95 +220,156 @@ class Index extends Component {
       username,
       password,
       explain,
+      windowHeight,
+      inputSize,
+      labelSize,
+      labelColor,
     } = this.state;
     return (
       <View style={styles.box}>
         <ScrollView>
-          <View style={styles.container}>
+          <View style={[styles.container, {minHeight: windowHeight}]}>
             <TouchableWithoutFeedback onPress={() => this.showSheet()}>
               <View style={styles.formLine}>
+                <Text
+                  fontSize={labelSize}
+                  color={labelColor}
+                  fontWeight="bold"
+                  bold={true}>
+                  密码类型*
+                </Text>
                 <Input
                   value={pwdType}
                   ref="input"
                   placeholder="请选择密码类型"
-                  label="密码类型"
-                  disabled={true}
+                  variant="underlined"
+                  isDisabled={true}
+                  size={inputSize}
                 />
               </View>
             </TouchableWithoutFeedback>
             <View style={styles.formLine}>
+              <Text
+                fontSize={labelSize}
+                color={labelColor}
+                fontWeight="bold"
+                bold={true}>
+                标题*
+              </Text>
               <Input
                 value={title}
                 placeholder="请输入标题"
-                label="标题"
                 onChangeText={value => this.setState({title: value})}
+                variant="underlined"
+                size={inputSize}
               />
             </View>
             <View style={styles.formLine}>
+              <Text
+                fontSize={labelSize}
+                color={labelColor}
+                fontWeight="bold"
+                bold={true}>
+                网址
+              </Text>
               <Input
                 value={site}
                 placeholder="请输入网址"
-                label="网址"
                 onChangeText={value => this.setState({site: value})}
+                variant="underlined"
+                size={inputSize}
               />
             </View>
             <View style={styles.formLine}>
+              <Text
+                fontSize={labelSize}
+                color={labelColor}
+                fontWeight="bold"
+                bold={true}>
+                用户名*
+              </Text>
               <Input
                 value={username}
                 placeholder="请输入用户名"
-                label="用户名"
                 onChangeText={value => this.setState({username: value})}
+                variant="underlined"
+                size={inputSize}
               />
             </View>
             <View style={styles.formLine}>
+              <Text
+                fontSize={labelSize}
+                color={labelColor}
+                fontWeight="bold"
+                bold={true}>
+                密码*
+              </Text>
               <Input
                 value={password}
                 placeholder="请输入密码"
-                label="密码"
                 onChangeText={value => this.setState({password: value})}
+                variant="underlined"
+                size={inputSize}
               />
             </View>
             <View style={styles.formLine}>
+              <Text
+                fontSize={labelSize}
+                color={labelColor}
+                fontWeight="bold"
+                bold={true}>
+                说明
+              </Text>
               <Input
                 value={explain}
                 placeholder="请输入说明"
-                label="说明"
                 onChangeText={value => this.setState({explain: value})}
+                variant="underlined"
+                size={inputSize}
               />
             </View>
             {type === 'add' ? (
               <View style={styles.btnAddBox}>
-                <Button
-                  title="新建"
-                  onPress={() => this.clickCreate()}
-                  buttonStyle={{backgroundColor: '#409EFF'}}
-                />
+                <Button onPress={() => this.clickCreate()}>新建</Button>
               </View>
             ) : (
               <View style={styles.btnList}>
-                <Button
-                  title="取消"
-                  containerStyle={{width: 90}}
-                  buttonStyle={{backgroundColor: '#909399'}}
-                  onPress={() => this.clickCancel()}
-                />
-                <Button
-                  title="删除"
-                  containerStyle={{width: 90}}
-                  buttonStyle={{backgroundColor: '#F56C6C'}}
-                  onPress={() => this.clickDelete()}
-                />
-                <Button
-                  title="保存"
-                  containerStyle={{width: 90}}
-                  onPress={() => this.clickSave()}
-                  buttonStyle={{backgroundColor: '#409EFF'}}
-                />
+                <View style={styles.btnBox}>
+                  <Button
+                    colorScheme="coolGray"
+                    onPress={() => this.clickCancel()}>
+                    取消
+                  </Button>
+                </View>
+                <View style={styles.btnBox}>
+                  <Button
+                    colorScheme="danger"
+                    onPress={() => this.clickDelete()}>
+                    删除
+                  </Button>
+                </View>
+                <View style={styles.btnBox}>
+                  <Button onPress={() => this.clickSave()}>保存</Button>
+                </View>
               </View>
             )}
           </View>
         </ScrollView>
 
+        <Actionsheet isOpen={isVisible} onClose={() => this.closeSheet()}>
+          <Actionsheet.Content>
+            {list.map((el, index) => {
+              return (
+                <Actionsheet.Item
+                  key={index}
+                  onPress={() => this.clickTypeItem(el, index)}>
+                  {el.name}
+                </Actionsheet.Item>
+              );
+            })}
+          </Actionsheet.Content>
+        </Actionsheet>
+        {/*
         <BottomSheet
           isVisible={isVisible}
           containerStyle={{
@@ -354,6 +400,7 @@ class Index extends Component {
             </TouchableWithoutFeedback>
           ))}
         </BottomSheet>
+                    */}
       </View>
     );
   }
