@@ -89,38 +89,43 @@ export default class Router extends Component {
                       }
                     };
                     return (
-                      <Popover
-                        isVisible={showPopover}
-                        onRequestClose={() => setPopover(false)}
-                        backgroundStyle={{opacity: 0.3}}
-                        offset={-20}
-                        from={
-                          <TouchableNativeFeedback
-                            background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
-                            onPress={() => setPopover(true)}>
-                            <View>
-                              <Icon
-                                name={'ellipsis-vertical'}
-                                size={26}
-                                color="#fff"
-                              />
-                            </View>
-                          </TouchableNativeFeedback>
-                        }>
-                        <View style={styles.popoverBox}>
-                          {popoverList.map(item => (
-                            <TouchableWithoutFeedback
-                              key={item.id}
-                              onPress={() => clickPopoverItem(item)}>
-                              <View key={item.id} style={styles.popoverLine}>
-                                <Text style={styles.popoverLineText}>
-                                  {item.name}
-                                </Text>
-                              </View>
-                            </TouchableWithoutFeedback>
-                          ))}
+                      <>
+                        <View>
+                          <Icon name={'search'} size={26} color="#fff" />
                         </View>
-                      </Popover>
+                        <Popover
+                          isVisible={showPopover}
+                          onRequestClose={() => setPopover(false)}
+                          backgroundStyle={{opacity: 0.3}}
+                          offset={-20}
+                          from={
+                            <TouchableNativeFeedback
+                              background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                              onPress={() => setPopover(true)}>
+                              <View>
+                                <Icon
+                                  name={'ellipsis-vertical'}
+                                  size={26}
+                                  color="#fff"
+                                />
+                              </View>
+                            </TouchableNativeFeedback>
+                          }>
+                          <View style={styles.popoverBox}>
+                            {popoverList.map(item => (
+                              <TouchableWithoutFeedback
+                                key={item.id}
+                                onPress={() => clickPopoverItem(item)}>
+                                <View key={item.id} style={styles.popoverLine}>
+                                  <Text style={styles.popoverLineText}>
+                                    {item.name}
+                                  </Text>
+                                </View>
+                              </TouchableWithoutFeedback>
+                            ))}
+                          </View>
+                        </Popover>
+                      </>
                     );
                   },
                 };
