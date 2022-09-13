@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: '100%',
   },
+  need: {
+    color: 'red',
+  },
   btnAddBox: {
     width: '100%',
   },

@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // 动画效果
-const ANIMATE_DURATION = 300;
+const ANIMATE_DURATION = 200;
 
 export default class ListItem extends Component {
   constructor(props) {
@@ -31,7 +31,6 @@ export default class ListItem extends Component {
     };
   }
   clickListItem(item, index) {
-    console.log('toggle', item.toggle);
     if (item.toggle) {
       // 当前是打开的
       Animated.timing(this.state.rotateDeg, {

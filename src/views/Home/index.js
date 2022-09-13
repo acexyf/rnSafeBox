@@ -22,6 +22,8 @@ import Clipboard from '@react-native-clipboard/clipboard';
 
 import ListItem from './list-item';
 
+import bus from '../../utils/bus';
+
 const {getData, getAllStorageKeys, multiGetStorage} = storage;
 
 // 主页
@@ -50,25 +52,33 @@ class Index extends Component {
         },
       },
     };
+
+    this.getSearchKey = this.getSearchKey.bind(this);
   }
 
   async componentDidMount() {
+    bus.addListener('searchKey', this.getSearchKey);
     await this.updateList();
 
     this._focus = this.props.navigation.addListener('focus', async () => {
       await this.updateList();
     });
   }
-  componentWillUnmount() {
-    this._focus();
+
+  getSearchKey(val) {
+    this.updateList(val);
   }
-  async updateList() {
+
+  componentWillUnrmount() {
+    this._focus();
+    bus.removeListener('searchKey', this.getSearchKey);
+  }
+  async updateList(search = '') {
     const allKeys = await getAllStorageKeys();
     const filterKeys = allKeys.filter(
       el => el.indexOf('@storage_classify-') !== -1,
     );
     const allData = await multiGetStorage(filterKeys);
-
     const tempDist = {};
     const list = [];
 
@@ -82,10 +92,22 @@ class Index extends Component {
       }
 
       if (temp) {
-        if (typeof tempDist[temp.classify] === 'undefined') {
-          tempDist[temp.classify] = [temp];
+        let addTmp = false;
+
+        if (search) {
+          if (temp.title.indexOf(search) !== -1) {
+            addTmp = true;
+          }
         } else {
-          tempDist[temp.classify].push(temp);
+          addTmp = true;
+        }
+
+        if (addTmp) {
+          if (typeof tempDist[temp.classify] === 'undefined') {
+            tempDist[temp.classify] = [temp];
+          } else {
+            tempDist[temp.classify].push(temp);
+          }
         }
       }
     }
@@ -99,13 +121,22 @@ class Index extends Component {
       } else {
         item.toggle = false;
       }
+      if (search) {
+        item.toggle = true;
+      }
 
       if (typeof tempDist[item.id] === 'undefined') {
         item.children = [];
       } else {
         item.children = tempDist[item.id];
       }
-      list.push(item);
+      if (search) {
+        if (item.children.length) {
+          list.push(item);
+        }
+      } else {
+        list.push(item);
+      }
     }
     this.setState({
       list,

@@ -10,8 +10,10 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {APP_NAME} from '../utils/config';
-
+import {Input} from 'native-base';
 import Popover from 'react-native-popover-view';
+
+import {debounce} from 'lodash-es';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +30,10 @@ export default class Router extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // 是否已登录
       isLogin: false,
+      // 是否进入搜索模式
+      isSearch: false,
       popoverList: [
         {
           id: 'change',
@@ -41,21 +46,35 @@ export default class Router extends Component {
       ],
     };
     this.getLogin = this.getLogin.bind(this);
+    this.handleInputChangeDebounce = debounce(this.handleInputChange, 300);
   }
   getLogin() {
     this.setState({
       isLogin: true,
     });
   }
-
   componentDidMount() {
     bus.addListener('login', this.getLogin);
   }
   componentWillUnmount() {
     bus.removeListener('login', this.getLogin);
+    this.handleInputChangeDebounce.cancel();
+  }
+  //进入或退出搜索模式
+  enterOrLeaveSearch(flag = true) {
+    if (!flag) {
+      // 退出搜索时清除搜索关键词
+      bus.emit('searchKey', '');
+    }
+    this.setState({
+      isSearch: flag,
+    });
+  }
+  handleInputChange(val) {
+    bus.emit('searchKey', val);
   }
   render() {
-    const {isLogin, popoverList} = this.state;
+    const {isLogin, isSearch, popoverList} = this.state;
     return (
       <Stack.Navigator
         initialRouteName="Login"
@@ -90,9 +109,45 @@ export default class Router extends Component {
                     };
                     return (
                       <>
-                        <View>
-                          <Icon name={'search'} size={26} color="#fff" />
-                        </View>
+                        {isSearch ? (
+                          <View style={styles.searchInputBox}>
+                            <Input
+                              variant="underlined"
+                              _stack={{
+                                space: 'sm',
+                              }}
+                              autoFocus={true}
+                              style={{
+                                height: 30,
+                                color: '#ffffff',
+                                fontSize: 12,
+                                padding: 0,
+                                margin: 0,
+                              }}
+                              focusOutlineColor="#ffffff"
+                              invalidOutlineColor="#ffffff"
+                              isFocused={true}
+                              isHovered={true}
+                              size="sm"
+                              borderBottomColor={'#fff'}
+                              InputLeftElement={
+                                <Icon
+                                  name={'search'}
+                                  size={20}
+                                  color="#ffffff"></Icon>
+                              }
+                              onChangeText={this.handleInputChangeDebounce}
+                            />
+                          </View>
+                        ) : (
+                          <TouchableOpacity
+                            onPress={() => this.enterOrLeaveSearch(true)}>
+                            <View style={styles.searchIcon}>
+                              <Icon name={'search'} size={26} color="#fff" />
+                            </View>
+                          </TouchableOpacity>
+                        )}
+
                         <Popover
                           isVisible={showPopover}
                           onRequestClose={() => setPopover(false)}
@@ -126,6 +181,23 @@ export default class Router extends Component {
                           </View>
                         </Popover>
                       </>
+                    );
+                  },
+                  headerTitle: () => {
+                    return (
+                      <View>
+                        {isSearch ? (
+                          <TouchableOpacity
+                            onPress={() => this.enterOrLeaveSearch(false)}>
+                            <Icon
+                              name={'ios-arrow-back'}
+                              size={26}
+                              color="#fff"></Icon>
+                          </TouchableOpacity>
+                        ) : (
+                          <Text style={styles.headerTitle}>{APP_NAME}</Text>
+                        )}
+                      </View>
                     );
                   },
                 };

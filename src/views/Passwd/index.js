@@ -236,7 +236,7 @@ class Index extends Component {
                   color={labelColor}
                   fontWeight="bold"
                   bold={true}>
-                  密码类型*
+                  密码类型<Text style={styles.need}>*</Text>
                 </Text>
                 <Input
                   value={pwdType}
@@ -254,7 +254,7 @@ class Index extends Component {
                 color={labelColor}
                 fontWeight="bold"
                 bold={true}>
-                标题*
+                标题<Text style={styles.need}>*</Text>
               </Text>
               <Input
                 value={title}
@@ -286,7 +286,7 @@ class Index extends Component {
                 color={labelColor}
                 fontWeight="bold"
                 bold={true}>
-                用户名*
+                用户名<Text style={styles.need}>*</Text>
               </Text>
               <Input
                 value={username}
@@ -302,7 +302,7 @@ class Index extends Component {
                 color={labelColor}
                 fontWeight="bold"
                 bold={true}>
-                密码*
+                密码<Text style={styles.need}>*</Text>
               </Text>
               <Input
                 value={password}
