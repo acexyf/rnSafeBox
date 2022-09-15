@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6F6',
   },
   listChildBox: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 30,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      paddingBottom: 10,
+      paddingBottom: 0,
     },
     value: {
       maxWidth: 200,
