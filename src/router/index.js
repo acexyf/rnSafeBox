@@ -113,9 +113,6 @@ export default class Router extends Component {
                           <View style={styles.searchInputBox}>
                             <Input
                               variant="underlined"
-                              _stack={{
-                                space: 'sm',
-                              }}
                               autoFocus={true}
                               style={{
                                 height: 30,
@@ -123,6 +120,7 @@ export default class Router extends Component {
                                 fontSize: 12,
                                 padding: 0,
                                 margin: 0,
+                                paddingLeft: 6,
                               }}
                               focusOutlineColor="#ffffff"
                               invalidOutlineColor="#ffffff"
