@@ -13,50 +13,11 @@ import {Button} from 'native-base';
 class Index extends Component {
   constructor() {
     super();
-    this.state = {
-      colors: [
-        'rose',
-        'pink',
-        'fuchsia',
-        'purple',
-        'violet',
-        'indigo',
-        'blue',
-        'lightBlue',
-        'cyan',
-        'teal',
-        'emerald',
-        'tertiary',
-        'green',
-        'lime',
-        'yellow',
-        'amber',
-        'orange',
-        'red',
-        'warmGray',
-        'trueGray',
-        'gray',
-        'coolGray',
-        'blueGray',
-        'dark',
-        'danger',
-        'error',
-        'success',
-        'warning',
-        'muted',
-        'primary',
-        'info',
-        'secondary',
-        'light',
-      ],
-    };
   }
   openHome() {
-    console.log('open');
     Linking.openURL('https://github.com/acexyf/rnSafeBox');
   }
   render() {
-    const {colors} = this.state;
     return (
       <View style={styles.box}>
         <ScrollView>
@@ -71,18 +32,6 @@ class Index extends Component {
               <Text style={[styles.under, styles.lineText]}>Github：查看</Text>
             </View>
           </TouchableWithoutFeedback>
-          {colors.map(el => {
-            return (
-              <Button colorScheme={el} key={el}>
-                {el}
-              </Button>
-            );
-          })}
-          {/*
-    
-    
-
-        */}
         </ScrollView>
       </View>
     );

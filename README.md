@@ -26,5 +26,5 @@ cd android && ./gradlew clean && ./gradlew assembleRelease
 
 * 支持指纹识别进入主页（done）
 * 箭头添加动画效果（done）
-* 搜索功能
+* 搜索功能（done）
 * 导出导入

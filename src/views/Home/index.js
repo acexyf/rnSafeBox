@@ -181,6 +181,7 @@ class Index extends Component {
               <ListItem
                 clickListItem={this.clickListItem.bind(this)}
                 clickItem={this.clickItem.bind(this)}
+                clickCopy={this.clickCopy.bind(this)}
                 key={index}
                 item={item}
                 index={index}></ListItem>

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
   listItem: {
     width: 500,
-    height: 90,
+    height: 80,
     borderBottomColor: '#D4D4D4',
     borderBottomWidth: 1,
     position: 'relative',
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6F6',
   },
   listChildBox: {
-    paddingVertical: 20,
-    paddingHorizontal: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

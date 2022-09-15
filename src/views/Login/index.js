@@ -135,7 +135,7 @@ class Index extends Component {
           />
         </View>
         <View style={styles.btn}>
-          <Button onPress={() => this.clickSubmit()}>确定</Button>
+          <Button onPress={() => this.clickSubmit()} backgroundColor="#128574">确定</Button>
         </View>
       </View>
     );

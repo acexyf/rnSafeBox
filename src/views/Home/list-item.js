@@ -52,7 +52,9 @@ export default class ListItem extends Component {
   clickItem(item, itm) {
     this.props.clickItem(item, itm);
   }
-  clickCopy() {}
+  clickCopy(text, type) {
+    this.props.clickCopy(text, type);
+  }
   render() {
     const {item, index} = this.props;
     const {windowWidth, rotateDeg} = this.state;
